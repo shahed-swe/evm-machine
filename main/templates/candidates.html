@@ -1,0 +1,53 @@
+<!-- candidates.html -->
+
+{% extends 'base.html' %} {% block content %}
+<h1>Select your candidate:</h1>
+<form id="vote-form">
+    {% csrf_token %}
+    <ul>
+        {% for candidate in candidates %}
+        <li>
+            <label>
+                <input
+                    type="radio"
+                    name="candidate_id"
+                    value="{{ candidate.id }}"
+                    required
+                />
+                {{ candidate.name }}
+            </label>
+            <img src="{{ candidate.photo.url }}" alt="{{ candidate.name }}" />
+        </li>
+        {% endfor %}
+    </ul>
+    <label>
+        Enter your fingerprint ID:
+        <input type="text" name="fingerprint_id" required />
+    </label>
+    <button type="submit">Vote</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $("#vote-form").submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+            type: form.attr("method"),
+            url: form.attr("action"),
+            data: form.serialize(),
+            success: function (data) {
+                if (data.success) {
+                    alert("Thank you for voting!");
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            },
+        });
+    });
+</script>
+{% endblock %}
