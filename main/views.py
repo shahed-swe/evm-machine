@@ -35,7 +35,7 @@ def vote(request):
         return JsonResponse({'error': 'Invalid request method.'})
 
 def home(request):
-    return render(request, 'home.html')
+    return JsonResponse({'message': 'Server run successfully.'})
 
 def candidates(request):
     candidates = Candidate.objects.annotate(num_votes=Count('vote'))
