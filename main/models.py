@@ -21,7 +21,7 @@ class Candidate(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return self.name
+        return self.name + " " + str(self.pk)
 
 class Vote(models.Model):
     voter = models.ForeignKey(Voter, on_delete=models.CASCADE)
