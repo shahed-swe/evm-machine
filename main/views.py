@@ -6,6 +6,9 @@ from django.core import serializers
 from django.forms.models import model_to_dict
 import json
 from django.db.models import Count
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Voter
 
 # Create your views here.
 @csrf_exempt
@@ -45,9 +48,7 @@ def candidates(request):
     return JsonResponse(candidates_list, safe=False)
 
 
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import Voter
+
 
 @csrf_exempt
 def add_voter(request):
