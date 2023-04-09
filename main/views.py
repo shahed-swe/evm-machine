@@ -48,8 +48,6 @@ def candidates(request):
     return JsonResponse(candidates_list, safe=False)
 
 
-
-
 @csrf_exempt
 def add_voter(request):
     if request.method == 'POST':
