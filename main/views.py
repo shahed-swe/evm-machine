@@ -8,7 +8,6 @@ import json
 from django.db.models import Count
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Voter
 
 # Create your views here.
 @csrf_exempt
@@ -23,7 +22,7 @@ def vote(request):
             return JsonResponse({'success': False, 'error': 'You have already voted.'})
         else:
             candidate_id = data.get('candidate_id', '')
-            candidate = Candidate.objects.filter(id=candidate_id).first()
+            candidate = Candidate.objects.filter(candidate_id=candidate_id).first()
             if candidate is None:
                 return JsonResponse({'success': False, 'error': 'Invalid candidate ID.'})
             vote = Vote(voter=voter, candidate=candidate)

@@ -11,6 +11,7 @@ class Voter(models.Model):
         return self.name + "--->" + self.fingerprint_id
 
 class Candidate(models.Model):
+    candidate_id = models.CharField(max_length=10, default="_")
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='photos/')
     created_at = models.DateTimeField(auto_now_add=True)
